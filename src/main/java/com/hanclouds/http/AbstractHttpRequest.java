@@ -45,6 +45,7 @@ public abstract class AbstractHttpRequest<T extends AbstractHttpResponse> {
         this.httpMethod = HttpMethodEnum.GET;
         this.connectTimeout = 2000;
         this.readTimeout = 10000;
+        this.putHeader("Connection", "close");
     }
 
     public Integer getConnectTimeout() {
