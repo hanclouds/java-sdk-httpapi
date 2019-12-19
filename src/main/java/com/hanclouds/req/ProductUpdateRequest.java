@@ -5,7 +5,7 @@ import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractProductKeyRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.BooleanResponse;
-import com.hanclouds.util.RegexUtils;
+import com.hanclouds.util.SdkRegexUtils;
 import com.hanclouds.util.StringUtils;
 
 /**
@@ -79,7 +79,7 @@ public class ProductUpdateRequest extends AbstractProductKeyRequest<BooleanRespo
         if (productName!=null&&StringUtils.isBlank(productName)) {
             throw new HanCloudsClientException("productName can not null or empty");
         }
-        if (productName!=null&&!RegexUtils.checkName(productName)) {
+        if (productName!=null&&!SdkRegexUtils.checkName(productName)) {
             throw new HanCloudsClientException("productName format error");
         }
         if (productIndustry!=null&&StringUtils.isBlank(productIndustry)) {

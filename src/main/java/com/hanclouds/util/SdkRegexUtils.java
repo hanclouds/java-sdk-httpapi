@@ -3,7 +3,6 @@ package com.hanclouds.util;
 import com.alibaba.fastjson.JSON;
 import com.hanclouds.enums.DataTypeEnum;
 import com.hanclouds.exception.HanCloudsClientException;
-import com.hanclouds.exception.HanCloudsException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +12,8 @@ import java.util.regex.Pattern;
  * @author czl
  * @date 2018/04/10
  */
-public class RegexUtils {
+public class SdkRegexUtils
+{
 
     private static Pattern emailRegex = Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@[\\w-]+(\\.[\\w-]+)+$", Pattern.CASE_INSENSITIVE);
     private static Pattern chineseMobileRegex = Pattern.compile("^(0|86|17951)?(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[0-9]|19[0-9])[0-9]{8}$", Pattern.CASE_INSENSITIVE);
@@ -23,6 +23,8 @@ public class RegexUtils {
     private static Pattern ipRegex = Pattern.compile("([1-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}", Pattern.CASE_INSENSITIVE);
     private static Pattern base64Regex = Pattern.compile("^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$", Pattern.CASE_INSENSITIVE);
     private static Pattern nameRegex = Pattern.compile("^[A-Za-z0-9_!@#$%^&*()\\u4e00-\\u9fa5]+$", Pattern.CASE_INSENSITIVE);
+    private static Pattern deviceNameRegex = Pattern.compile("^[-A-Za-z0-9_!@#$%^&*()\\u4e00-\\u9fa5]+$", Pattern.CASE_INSENSITIVE);
+    private static Pattern archiveTemplateProperyNameRegex = Pattern.compile("^(?![-._])[-A-Za-z0-9_.\\u4e00-\\u9fa5]{1,30}$", Pattern.CASE_INSENSITIVE);
 
     private static final int MOBILE_LENGTH = 11;
     private static final int MAX_ADDRESS_LENGTH = 15;
@@ -175,6 +177,39 @@ public class RegexUtils {
             return false;
         }
     }
+    /**
+     * 判断通用名称规则是否合法，字母、数字、特殊字符、中文、短横线
+     * @param str
+     * @return
+     */
+    public static boolean checkDeviceName(String str) {
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+        Matcher matcher = deviceNameRegex.matcher(str);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 判断档案模板属性名称规则是否合法，大小写字母、数字、下划线、短划线、小数点，必须以中文、英文或数字开头,长度不能超过30
+     * @param str
+     * @return
+     */
+    public static boolean chechArchiveTemplateProperyName(String str) {
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+        Matcher matcher = archiveTemplateProperyNameRegex.matcher(str);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static void dataFormat(DataTypeEnum dataType,String content) throws HanCloudsClientException {
         try {
@@ -187,7 +222,7 @@ public class RegexUtils {
                     }
                 }
                 break;
-                case INT: {
+                case INTEGER: {
                     Integer.parseInt(content);
                 }
                 break;
@@ -202,11 +237,27 @@ public class RegexUtils {
                 }
                 break;
                 case BIN: {
-                    if(!RegexUtils.isBase64(content)){
+                    if(!SdkRegexUtils.isBase64(content)){
                         throw new HanCloudsClientException("the content must base64 string");
                     }
                 }
                 break;
+                case BOOLEAN:
+                    break;
+                case ARRAY:
+                    break;
+                case ENUM:
+                    break;
+                case FLOAT:
+                    break;
+                case GPS:
+                    break;
+                case LONG:
+                    break;
+                case IMAGE:
+                    break;
+                case DATE:
+                    break;
                 default: {
                     throw new HanCloudsClientException("the dataType is invalid");
                 }

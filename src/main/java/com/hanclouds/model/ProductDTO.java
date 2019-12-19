@@ -10,6 +10,7 @@ import java.util.Date;
 public class ProductDTO {
     private Date createAt;
     private Date updateAt;
+    private String projectKey;
     private String productKey;
     private String userKey;
     private String productName;
@@ -17,6 +18,7 @@ public class ProductDTO {
     private Integer productStatus;
     private String productIndustry;
     private String productCategory;
+    private String disableReason;
     private Object extendData;
 
     public Date getCreateAt() {
@@ -99,19 +101,57 @@ public class ProductDTO {
         this.extendData = extendData;
     }
 
+    public String getDisableReason() {
+        return disableReason;
+    }
+
+    public void setDisableReason(String disableReason) {
+        this.disableReason = disableReason;
+    }
+
+    public String getProjectKey() {
+        return projectKey;
+    }
+
+    public void setProjectKey(String projectKey) {
+        this.projectKey = projectKey;
+    }
+
     @Override
     public String toString() {
-        return "ProductDTO{" +
-                "createAt=" + createAt +
-                ", updateAt=" + updateAt +
-                ", productKey='" + productKey + '\'' +
-                ", userKey='" + userKey + '\'' +
-                ", productName='" + productName + '\'' +
-                ", descr='" + descr + '\'' +
-                ", productStatus=" + productStatus +
-                ", productIndustry='" + productIndustry + '\'' +
-                ", productCategory='" + productCategory + '\'' +
-                ", extendData=" + extendData +
-                '}';
+        return "ProductDTO{"
+                + "createAt="
+                + createAt
+                + ", updateAt="
+                + updateAt
+                + ", projectKey='"
+                + projectKey
+                + '\''
+                + ", productKey='"
+                + productKey
+                + '\''
+                + ", userKey='"
+                + userKey
+                + '\''
+                + ", productName='"
+                + productName
+                + '\''
+                + ", descr='"
+                + descr
+                + '\''
+                + ", productStatus="
+                + productStatus
+                + ", productIndustry='"
+                + productIndustry
+                + '\''
+                + ", productCategory='"
+                + productCategory
+                + '\''
+                + ", disableReason='"
+                + disableReason
+                + '\''
+                + ", extendData="
+                + extendData
+                + '}';
     }
 }

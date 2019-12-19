@@ -17,6 +17,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2018/5/23 16:19
  */
+@Deprecated
 public class DeviceArchiveRecordMultiAddRequest extends AbstractHttpRequest<DeviceArchiveRecordMultiAddResponse> {
 
     private String productKey;

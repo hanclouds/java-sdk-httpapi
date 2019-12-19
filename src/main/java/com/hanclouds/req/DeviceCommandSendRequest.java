@@ -3,13 +3,11 @@ package com.hanclouds.req;
 import com.hanclouds.enums.DataTypeEnum;
 import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractDeviceKeyRequest;
-import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.StringResponse;
-import com.hanclouds.util.RegexUtils;
+import com.hanclouds.util.SdkRegexUtils;
 import com.hanclouds.util.StringUtils;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -76,7 +74,7 @@ public class DeviceCommandSendRequest extends AbstractDeviceKeyRequest<StringRes
         if (StringUtils.isBlank(content)) {
             throw new HanCloudsClientException("content can not null or empty");
         }
-        RegexUtils.dataFormat(dataType,content);
+        SdkRegexUtils.dataFormat(dataType,content);
         this.setBodyContentByObject(content);
     }
 

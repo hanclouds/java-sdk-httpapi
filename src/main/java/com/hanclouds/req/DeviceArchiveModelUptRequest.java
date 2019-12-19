@@ -14,6 +14,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2018/5/29 15:05
  */
+@Deprecated
 public class DeviceArchiveModelUptRequest extends AbstractProductKeyRequest<BooleanResponse> {
 
     private String modelName;

@@ -1,14 +1,11 @@
 package com.hanclouds.req;
 
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
-import com.hanclouds.enums.ProtocolEnum;
 import com.hanclouds.exception.HanCloudsClientException;
-import com.hanclouds.http.AbstractDeviceKeyRequest;
-import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.http.AbstractProductKeyRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.DeviceCreateResponse;
-import com.hanclouds.util.RegexUtils;
+import com.hanclouds.util.SdkRegexUtils;
 import com.hanclouds.util.StringUtils;
 
 /**
@@ -76,7 +73,7 @@ public class DeviceCreateRequest extends AbstractProductKeyRequest<DeviceCreateR
         if (StringUtils.isBlank(deviceName)) {
             throw new HanCloudsClientException("device name can not null or empty");
         }
-        if (!RegexUtils.checkName(deviceName)) {
+        if (!SdkRegexUtils.checkDeviceName(deviceName)) {
             throw new HanCloudsClientException("device name format error");
         }
         if (StringUtils.isBlank(sn)) {

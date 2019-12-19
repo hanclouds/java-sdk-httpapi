@@ -21,9 +21,9 @@ public abstract class AbstractHttpRequest<T extends AbstractHttpResponse> {
     private final static String PUT_POST_CONTENT_TYPE = "application/json";
     private final static String SIGNATURE = "signature";
 
-        /**
-         * 请求的url相对地址
-         */
+    /**
+     * 请求的url相对地址
+     */
     private String url;
 
     protected HttpMethodEnum httpMethod;
@@ -111,7 +111,7 @@ public abstract class AbstractHttpRequest<T extends AbstractHttpResponse> {
      */
     public void setBodyContentByObject(Object object) {
         if(object instanceof Number ||object instanceof Integer||object instanceof Float||
-        object instanceof Double||object instanceof String||object instanceof Long
+                object instanceof Double||object instanceof String||object instanceof Long
                 ||object instanceof Long||object instanceof Byte){
             setBodyContent(object.toString().getBytes(Charset.forName("UTF-8")));
         }
@@ -309,7 +309,9 @@ public abstract class AbstractHttpRequest<T extends AbstractHttpResponse> {
         }
 
         httpURLConnection.setUseCaches(false);
-        httpURLConnection.setDoOutput(true);
+        if(!HttpMethodEnum.GET.equals(this.httpMethod)) {
+            httpURLConnection.setDoOutput(true);
+        }
         if (this.readTimeout != null) {
             httpURLConnection.setReadTimeout(this.readTimeout);
         }

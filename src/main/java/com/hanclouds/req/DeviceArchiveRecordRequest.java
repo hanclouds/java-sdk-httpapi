@@ -9,6 +9,7 @@ import com.hanclouds.resp.DeviceArchiveRecordResponse;
  * @version 1.0
  * @date 2018/5/23 14:49
  */
+@Deprecated
 public class DeviceArchiveRecordRequest extends AbstractDeviceKeyRequest<DeviceArchiveRecordResponse> {
 
     private String deviceKey;

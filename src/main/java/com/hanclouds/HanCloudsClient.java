@@ -87,11 +87,6 @@ public class HanCloudsClient {
             throw new HanCloudsClientException("request is null");
         }
 
-
-        if (this.secretKey == null || this.secretKey.isEmpty()) {
-            throw new HanCloudsClientException("no secretKey for request");
-        }
-
         boolean hadKey = false;
         //放入 key 参数
         if (this.userKey != null && !this.userKey.isEmpty() && this.userAuthKey != null && !this.userAuthKey.isEmpty()) {
@@ -113,12 +108,15 @@ public class HanCloudsClient {
         }
 
         if (!hadKey) {
-            throw new HanCloudsClientException("no auth keys for request");
+            throw new HanCloudsClientException("no key or auth key or secret key for request");
         }
 
         request.validate();
 
         //request签名生成必要参数
+        if (this.secretKey == null || this.secretKey.isEmpty()) {
+            throw new HanCloudsClientException("no secretKey for request");
+        }
         request.signAndPutQueryParams(this.secretKey);
 
         HttpURLConnection httpURLConnection = request.getHttpConnection(this.gatewayUrl);

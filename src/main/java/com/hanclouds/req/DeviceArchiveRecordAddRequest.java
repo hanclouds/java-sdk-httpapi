@@ -15,6 +15,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2018/5/23 14:49
  */
+@Deprecated
 public class DeviceArchiveRecordAddRequest extends AbstractDeviceKeyRequest<DeviceArchiveRecordAddResponse> {
 
     private Integer modelId;

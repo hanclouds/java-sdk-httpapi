@@ -10,6 +10,7 @@ import com.hanclouds.resp.DeviceArchiveModelPageResponse;
  * @version 1.0
  * @date 2018/5/23 14:38
  */
+@Deprecated
 public class DeviceArchiveModelPageRequest extends AbstractProductKeyPageRequest<DeviceArchiveModelPageResponse> {
 
     private String modelName;

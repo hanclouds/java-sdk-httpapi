@@ -16,6 +16,7 @@ import java.util.List;
  * @version 1.0
  * @date 2018/6/5 17:59
  */
+@Deprecated
 public class DeviceCommandNumRequest extends AbstractDeviceKeyRequest<LongResponse> {
     private List<CommandStateEnum> states;
     private Long startTime;

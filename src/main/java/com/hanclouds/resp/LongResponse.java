@@ -2,6 +2,7 @@ package com.hanclouds.resp;
 
 import com.hanclouds.http.AbstractHttpResponse;
 import com.hanclouds.http.BaseHttpResponse;
+import com.hanclouds.util.StringUtils;
 
 /**
  * @author lih
@@ -26,6 +27,7 @@ public class LongResponse extends AbstractHttpResponse {
             return;
         }
 
-        value = Long.valueOf(new String(baseHttpResponse.getBodyContent()));
+        String result = new String(baseHttpResponse.getBodyContent());
+        value = StringUtils.isEmpty(result) ? 0L : Long.valueOf(result);
     }
 }

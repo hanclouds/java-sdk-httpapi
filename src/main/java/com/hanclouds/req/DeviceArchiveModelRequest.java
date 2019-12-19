@@ -10,6 +10,7 @@ import com.hanclouds.resp.DeviceArchiveModelResponse;
  * @version 1.0
  * @date 2018/6/25 10:20
  */
+@Deprecated
 public class DeviceArchiveModelRequest extends AbstractProductKeyRequest<DeviceArchiveModelResponse> {
 
     private Integer archiveModelId;

@@ -18,7 +18,7 @@ public enum DataTypeEnum {
     /**
      * 整数类型，4字节
      */
-    INT(2),
+    INTEGER(2),
     /**
      * 字符串类型
      */
@@ -30,7 +30,40 @@ public enum DataTypeEnum {
     /**
      * 二进制字节流
      */
-    BIN(5);
+    BIN(5),
+    /**
+     * boolean类型
+     */
+    BOOLEAN(6),
+    /**
+     * 数组
+     */
+    ARRAY(7),
+    /**
+     * 枚举
+     */
+    ENUM(8),
+    /**
+     * 单精度浮点型
+     */
+    FLOAT(9),
+    /**
+     * GPS
+     */
+    GPS(10),
+    /**
+     * 长整型
+     */
+    LONG(11),
+    /**
+     * 图片类型
+     */
+    IMAGE(12),
+    /**
+     * 日期类型
+     */
+    DATE(13),
+    ;
 
     private final int value;
 
@@ -58,6 +91,30 @@ public enum DataTypeEnum {
             }
             case 5: {
                 return "bin";
+            }
+            case 6: {
+                return "boolean";
+            }
+            case 7: {
+                return "array";
+            }
+            case 8: {
+                return "enum";
+            }
+            case 9: {
+                return "float";
+            }
+            case 10: {
+                return "gps";
+            }
+            case 11: {
+                return "long";
+            }
+            case 12: {
+                return "image";
+            }
+            case 13: {
+                return "date";
             }
             default: {
                 return "invalid";

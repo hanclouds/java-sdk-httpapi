@@ -14,6 +14,7 @@ import com.hanclouds.util.StringUtils;
  * @version 1.0
  * @date 2018/5/30 14:09
  */
+@Deprecated
 public class DataStreamAddRequest extends AbstractProductKeyRequest<DataStreamAddResponse> {
 
     private DataStreamAddDTO dataStreamAddDTO;

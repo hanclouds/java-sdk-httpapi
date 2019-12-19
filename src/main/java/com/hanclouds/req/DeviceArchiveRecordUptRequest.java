@@ -16,6 +16,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2018/5/28 18:59
  */
+@Deprecated
 public class DeviceArchiveRecordUptRequest extends AbstractDeviceKeyRequest<DeviceArchiveRecordUptResponse> {
 
     private Map<String, String> propertyData;
