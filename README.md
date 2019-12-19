@@ -20,7 +20,7 @@ DeviceDataStreamLatestDataResponse response = hanCloudsClient.execute(dataReq);
 
 if (response != null) {
     List<DeviceDataDTO> deviceDataDTOList = response.getResponse();
-    //获取返回信息，并进行业务处理 
+    //获取返回信息，并进行业务处理   
 }
 ```
 
