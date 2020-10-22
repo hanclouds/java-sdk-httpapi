@@ -4,7 +4,6 @@ import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractDeviceKeyRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.DeviceCommandListResponse;
-import com.hanclouds.util.StringUtils;
 
 import java.util.List;
 

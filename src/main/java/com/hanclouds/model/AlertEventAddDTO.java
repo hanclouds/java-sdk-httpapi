@@ -1,7 +1,5 @@
 package com.hanclouds.model;
 
-import com.hanclouds.enums.EventTypeEnum;
-
 /**
  * 新增告警事件DTO
  *

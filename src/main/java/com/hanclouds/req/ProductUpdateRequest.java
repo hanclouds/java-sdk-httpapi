@@ -76,16 +76,16 @@ public class ProductUpdateRequest extends AbstractProductKeyRequest<BooleanRespo
     public void validate() throws HanCloudsClientException {
         super.validate();
 
-        if (productName!=null&&StringUtils.isBlank(productName)) {
+        if (productName!=null&& StringUtils.isBlank(productName)) {
             throw new HanCloudsClientException("productName can not null or empty");
         }
         if (productName!=null&&!SdkRegexUtils.checkName(productName)) {
             throw new HanCloudsClientException("productName format error");
         }
-        if (productIndustry!=null&&StringUtils.isBlank(productIndustry)) {
+        if (productIndustry!=null&& StringUtils.isBlank(productIndustry)) {
             throw new HanCloudsClientException("productIndustry can not null or empty");
         }
-        if (productCategory!=null&&StringUtils.isBlank(productCategory)) {
+        if (productCategory!=null&& StringUtils.isBlank(productCategory)) {
             throw new HanCloudsClientException("productCategory can not null or empty");
         }
         SimplePropertyPreFilter filter = new SimplePropertyPreFilter(

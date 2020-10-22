@@ -16,6 +16,8 @@ import com.hanclouds.util.StringUtils;
 public class AlertEventListRequest
     extends AbstractAlertEventIdentifierRequest<AlertEventListResponse>
 {
+  /** 查询的起始时间 */
+  private Long startTime;
 
   /** 查询数据条数（最近多少条） */
   private Integer limit;
@@ -40,8 +42,21 @@ public class AlertEventListRequest
   }
 
   public void setOrder(String order) {
-    this.putQueryParameter("order", order);
     this.order = order;
+    this.putQueryParameter("order", order);
+  }
+
+  public Long getStartTime()
+  {
+    return startTime;
+  }
+
+  public void setStartTime(Long startTime)
+  {
+    this.startTime = startTime;
+    if(startTime != null){
+      this.putQueryParameter("startTime", startTime.toString());
+    }
   }
 
   public EventTypeEnum getEventType() {
@@ -72,6 +87,10 @@ public class AlertEventListRequest
         && !"asc".toLowerCase().equals(this.order.toLowerCase())
         && !"desc".toLowerCase().equals(this.order.toLowerCase())) {
       throw new HanCloudsClientException("order must be asc or desc");
+    }
+
+    if(this.startTime != null && this.startTime <= 0) {
+      throw new HanCloudsClientException("startTime must greater than zero");
     }
   }
 }

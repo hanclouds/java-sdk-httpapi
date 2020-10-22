@@ -1,6 +1,5 @@
 package com.hanclouds.req;
 
-import com.alibaba.fastjson.JSONObject;
 import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.http.HttpMethodEnum;

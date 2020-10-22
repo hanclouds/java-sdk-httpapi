@@ -31,7 +31,7 @@ public class SignUtils {
     }
 
 
-    public static String signWithHmacsh1(String secret, String content) throws HanCloudsClientException{
+    public static String signWithHmacsh1(String secret, String content) throws HanCloudsClientException {
         try {
             byte[] keyBytes = secret.getBytes(CHARSET_UTF8);
             SecretKey secretKey = new SecretKeySpec(keyBytes, HMAC_SHA1);

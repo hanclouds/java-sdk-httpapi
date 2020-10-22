@@ -4,6 +4,8 @@ import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractDeviceKeyDataStreamPageRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.DeviceDataStreamDataPageResponse;
+import com.hanclouds.util.StringUtils;
+import com.hanclouds.util.ValidateUtils;
 
 /**
  * 根据数据流名称获取设备数据流请求
@@ -52,12 +54,12 @@ public class DeviceDataStreamDataPageRequest extends AbstractDeviceKeyDataStream
     @Override
     public void validate() throws HanCloudsClientException {
         super.validate();
+        ValidateUtils.validatePage(this.page, this.pageSize);
 
-        if (this.page <= 0) {
-            throw new HanCloudsClientException("page must greater than zero");
-        }
-        if (this.pageSize <= 0) {
-            throw new HanCloudsClientException("pageSize must greater than zero");
+        if (!StringUtils.isEmpty(this.order)
+                && !"asc".toLowerCase().equals(this.order.toLowerCase())
+                && !"desc".toLowerCase().equals(this.order.toLowerCase())) {
+            throw new HanCloudsClientException("order must be asc or desc");
         }
     }
 }

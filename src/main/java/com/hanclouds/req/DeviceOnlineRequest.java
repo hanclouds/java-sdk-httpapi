@@ -1,11 +1,8 @@
 package com.hanclouds.req;
 
-import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractDeviceKeyRequest;
 import com.hanclouds.http.HttpMethodEnum;
-import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.resp.BooleanResponse;
-import com.hanclouds.util.StringUtils;
 
 /**
  * 设备在线状态请求

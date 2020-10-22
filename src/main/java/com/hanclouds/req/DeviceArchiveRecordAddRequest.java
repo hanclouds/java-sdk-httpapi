@@ -2,10 +2,8 @@ package com.hanclouds.req;
 
 import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractDeviceKeyRequest;
-import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.DeviceArchiveRecordAddResponse;
-import com.hanclouds.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;

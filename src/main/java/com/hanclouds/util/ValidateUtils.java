@@ -25,6 +25,11 @@ public class ValidateUtils
      */
     private static final Integer MAX_TEMPLATE_DESC_LIMIT = 100;
 
+    /**
+     * 分页查询page*pageSize总数限制
+     */
+    private static final Integer QUERY_NUM_LIMIT = 100000;
+
     public static void validateArchiveTempalte(ArchiveTemplateAddDTO archiveTemplateAddDTO, List<ArchiveTemplateParameter> parameters) throws HanCloudsClientException
     {
         if(archiveTemplateAddDTO == null){
@@ -260,6 +265,27 @@ public class ValidateUtils
                 break;
             default:
                 throw new HanCloudsClientException(String.format("参数[%s]的数据类型必须为INTEGER、FLOAT、DOUBLE或者STRING类型", fieldName));
+        }
+    }
+
+    /**
+     * 分页参数校验
+     * @param page
+     * @param pageSize
+     * @throws HanCloudsClientException
+     */
+    public static void validatePage(Integer page, Integer pageSize) throws HanCloudsClientException
+    {
+        if (page != null && page <= 0) {
+            throw new HanCloudsClientException("page must greater than zero");
+        }
+
+        if (pageSize != null && pageSize <= 0) {
+            throw new HanCloudsClientException("pageSize must greater than zero");
+        }
+
+        if (page != null && pageSize != null && page * pageSize > QUERY_NUM_LIMIT) {
+            throw new HanCloudsClientException("page乘以pageSize的值不能大于10万");
         }
     }
 }

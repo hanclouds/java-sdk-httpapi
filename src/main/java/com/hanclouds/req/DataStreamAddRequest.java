@@ -2,7 +2,6 @@ package com.hanclouds.req;
 
 import com.hanclouds.enums.DataTypeEnum;
 import com.hanclouds.exception.HanCloudsClientException;
-import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.http.AbstractProductKeyRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.model.DataStreamAddDTO;

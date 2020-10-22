@@ -11,6 +11,7 @@ import com.hanclouds.resp.ProjectProductListResponse;
  * @version 2.0
  * @date 2019/7/25
  */
+@Deprecated
 public class DefaultProjectProductListRequest
     extends AbstractHttpPageRequest<ProjectProductListResponse>
 {

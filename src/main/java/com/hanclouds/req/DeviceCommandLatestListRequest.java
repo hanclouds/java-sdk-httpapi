@@ -3,10 +3,8 @@ package com.hanclouds.req;
 
 import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractDeviceKeyRequest;
-import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.DeviceCommandListResponse;
-import com.hanclouds.util.StringUtils;
 
 /**
  * 获取设备的最近命令信息

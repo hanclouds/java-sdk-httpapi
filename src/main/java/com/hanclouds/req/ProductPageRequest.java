@@ -1,7 +1,7 @@
 package com.hanclouds.req;
 
-import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.http.AbstractHttpPageRequest;
+import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.ProductPageResponse;
 
 /**

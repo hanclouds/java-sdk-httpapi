@@ -3,9 +3,10 @@ package com.hanclouds;
 import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.exception.HanCloudsException;
 import com.hanclouds.exception.HanCloudsServerException;
-import com.hanclouds.http.BaseHttpResponse;
 import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.http.AbstractHttpResponse;
+import com.hanclouds.http.BaseHttpResponse;
+import com.hanclouds.util.StringUtils;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -22,13 +23,15 @@ public class HanCloudsClient {
     /**
      * 实体Key
      * 多个key共存情况下按以下优先顺序读取，不会在客户端检测是否有相关权限
-     * userKey, productKey, deviceKey
+     * userKey, productKey, deviceKey, projectKey
      */
     private String userKey;
+    private String projectKey;
     private String productKey;
     private String deviceKey;
 
     private String userAuthKey;
+    private String projectAuthKey;
     private String productServiceKey;
 
     /**
@@ -55,6 +58,18 @@ public class HanCloudsClient {
         this.secretKey = secretKey;
     }
 
+    public void putProjectAuthParams(String projectKey, String authKey, String secretKey) {
+        if (StringUtils.isEmpty(projectKey)
+                || StringUtils.isEmpty(authKey)
+                || StringUtils.isEmpty(secretKey)) {
+            return;
+        }
+
+        this.projectKey = projectKey;
+        this.projectAuthKey = authKey;
+        this.secretKey = secretKey;
+    }
+
     public void putProductAuthParams(String productKey, String serviceKey, String secretKey) {
         if (productKey == null || productKey.isEmpty()
                 || serviceKey == null || serviceKey.isEmpty()
@@ -76,6 +91,27 @@ public class HanCloudsClient {
         this.secretKey = deviceToken;
     }
 
+
+    /**
+     * 设置产品给项目授权参数
+     * @param productKey
+     * @param projectKey
+     * @param projectAuthKey
+     * @param projectAuthSecret
+     */
+    public void putProductProjectAuthorizationParams(String productKey, String projectKey, String projectAuthKey, String projectAuthSecret){
+        if(StringUtils.isEmpty(productKey)
+                || StringUtils.isEmpty(projectKey)
+                || StringUtils.isEmpty(projectAuthKey)
+                || StringUtils.isEmpty(projectAuthSecret)){
+            return;
+        }
+        this.productKey = productKey;
+        this.projectKey = projectKey;
+        this.projectAuthKey = projectAuthKey;
+        this.secretKey = projectAuthSecret;
+    }
+
     /**
      * 执行对应request并返回指定Response
      * @param request
@@ -92,6 +128,17 @@ public class HanCloudsClient {
         if (this.userKey != null && !this.userKey.isEmpty() && this.userAuthKey != null && !this.userAuthKey.isEmpty()) {
             request.putHeader("HC-USER-KEY", this.userKey);
             request.putHeader("HC-USER-AUTH-KEY", this.userAuthKey);
+            hadKey = true;
+        }
+
+        if (!StringUtils.isEmpty(this.projectKey) && !StringUtils.isEmpty(this.projectAuthKey)) {
+            request.putHeader("HC-PROJECT-KEY", this.projectKey);
+            request.putHeader("HC-PROJECT-AUTH-KEY", this.projectAuthKey);
+
+            // 处理产品或设备授权的情况
+            if(!StringUtils.isEmpty(this.productKey)){
+                request.putHeader("HC-PRODUCT-KEY", this.productKey);
+            }
             hadKey = true;
         }
 

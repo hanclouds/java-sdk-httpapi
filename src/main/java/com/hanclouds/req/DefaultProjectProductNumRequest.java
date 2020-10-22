@@ -12,6 +12,7 @@ import com.hanclouds.resp.IntegerResponse;
  * @version 2.0
  * @date 2019/7/25
  */
+@Deprecated
 public class DefaultProjectProductNumRequest extends AbstractHttpPageRequest<IntegerResponse>
 {
 

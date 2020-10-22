@@ -12,8 +12,20 @@ import com.hanclouds.resp.ProjectProductListResponse;
  * @date 2019/7/25
  */
 public class ProjectProductListRequest
-    extends AbstractProjectKeyRequest<ProjectProductListResponse>
-{
+    extends AbstractProjectKeyRequest<ProjectProductListResponse> {
+
+  private String queryAuthType;
+
+  public String getQueryAuthType() {
+    return queryAuthType;
+  }
+
+  public void setQueryAuthType(String queryAuthType) {
+    this.queryAuthType = queryAuthType;
+    if (this.queryAuthType != null) {
+      this.putQueryParameter("queryAuthTypeEnum", this.queryAuthType);
+    }
+  }
 
   public ProjectProductListRequest() {
     super("/projects/{projectKey}/products");

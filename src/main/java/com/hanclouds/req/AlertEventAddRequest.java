@@ -1,6 +1,5 @@
 package com.hanclouds.req;
 
-import com.hanclouds.enums.EventTypeEnum;
 import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractAlertEventIdentifierRequest;
 import com.hanclouds.http.HttpMethodEnum;

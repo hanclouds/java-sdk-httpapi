@@ -5,6 +5,7 @@ import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractAlertEventIdentifierPageRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.AlertEventPageResponse;
+import com.hanclouds.util.ValidateUtils;
 
 /**
  * 某个设备的告警事件列表请求(需要分页)
@@ -61,12 +62,6 @@ public class AlertEventPageRequest
   public void validate() throws HanCloudsClientException
   {
     super.validate();
-
-    if (this.page <= 0) {
-      throw new HanCloudsClientException("page must greater than zero");
-    }
-    if (this.pageSize <= 0) {
-      throw new HanCloudsClientException("pageSize must greater than zero");
-    }
+    ValidateUtils.validatePage(this.page, this.pageSize);
   }
 }
