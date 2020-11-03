@@ -91,27 +91,6 @@ public class HanCloudsClient {
         this.secretKey = deviceToken;
     }
 
-
-    /**
-     * 设置产品给项目授权参数
-     * @param productKey
-     * @param projectKey
-     * @param projectAuthKey
-     * @param projectAuthSecret
-     */
-    public void putProductProjectAuthorizationParams(String productKey, String projectKey, String projectAuthKey, String projectAuthSecret){
-        if(StringUtils.isEmpty(productKey)
-                || StringUtils.isEmpty(projectKey)
-                || StringUtils.isEmpty(projectAuthKey)
-                || StringUtils.isEmpty(projectAuthSecret)){
-            return;
-        }
-        this.productKey = productKey;
-        this.projectKey = projectKey;
-        this.projectAuthKey = projectAuthKey;
-        this.secretKey = projectAuthSecret;
-    }
-
     /**
      * 执行对应request并返回指定Response
      * @param request
