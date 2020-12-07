@@ -211,7 +211,7 @@ public class SdkRegexUtils
         }
     }
 
-    public static void dataFormat(DataTypeEnum dataType, String content) throws HanCloudsClientException {
+    public static void dataFormat(DataTypeEnum dataType,String content) throws HanCloudsClientException {
         try {
             switch (dataType) {
                 case JSON: {

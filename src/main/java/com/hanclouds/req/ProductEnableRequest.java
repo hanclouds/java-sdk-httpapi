@@ -24,7 +24,7 @@ public class ProductEnableRequest extends AbstractProductKeyRequest<BooleanRespo
     }
 
     @Override
-    public void validate() throws HanCloudsClientException {
+    public void validate() throws HanCloudsClientException{
         super.validate();
     }
 }
