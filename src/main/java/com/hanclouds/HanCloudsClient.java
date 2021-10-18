@@ -11,6 +11,8 @@ import com.hanclouds.util.StringUtils;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author czl
@@ -20,6 +22,10 @@ import java.net.SocketTimeoutException;
 public class HanCloudsClient {
 
     private String gatewayUrl;
+
+    private int reTryCount;
+
+    private long reTryTime;
 
     /**
      * 实体Key
@@ -45,6 +51,16 @@ public class HanCloudsClient {
      */
     public HanCloudsClient(String gatewayUrl) {
         this.gatewayUrl = gatewayUrl;
+        this.reTryCount = 0;
+        this.reTryTime = 5000;
+    }
+
+    public void setReTryCount(int reTryCount) {
+        this.reTryCount = reTryCount;
+    }
+
+    public void setReTryTime(long reTryTime) {
+        this.reTryTime = reTryTime;
     }
 
     public void putUserAuthParams(String userKey, String authKey, String secretKey) {
@@ -151,13 +167,56 @@ public class HanCloudsClient {
             throw new HanCloudsClientException("request get http connection error");
         }
 
+        boolean ConnectFlag = false;
+        Map<String,String> errorMsgMap = new HashMap<String, String>();
+
         try {
             httpURLConnection.connect();
-        } catch (SocketTimeoutException e){
-            throw new HanCloudsServerException("request get http connection SocketTimeoutException>"+e.getMessage());
-        } catch (IOException e) {
-            throw new HanCloudsServerException("request get http connection IOException>"+e.getMessage());
+            ConnectFlag = true;
+        }  catch (IOException e) {
+            if(this.reTryCount <= 0){
+                if(e instanceof SocketTimeoutException){
+                    errorMsgMap.put("SocketException",e.getMessage());
+                }else{
+                    errorMsgMap.put("IOException",e.getMessage());
+                }
+            }
+            //异常情况下才进行重连机制，默认不重连，默认重连时间是5秒
+            if(this.reTryCount > 0 && this.reTryTime > 0){
+                for (int i = 0; i < this.reTryCount; i++) {
+                    try {
+                        httpURLConnection.connect();
+                        ConnectFlag = true;
+                        break;
+                    } catch (IOException retryException) {
+                        try {
+                            Thread.sleep(this.reTryTime);
+                        } catch (InterruptedException interruptedException) {
+                            interruptedException.printStackTrace();
+                            //errorMsgMap.put("InterruptedException",interruptedException.getMessage());
+                        }
+                        if(retryException instanceof SocketTimeoutException){
+                            errorMsgMap.put("SocketException",retryException.getMessage());
+                        }else{
+                            errorMsgMap.put("IOException",retryException.getMessage());
+                        }
+                    }
+                }
+            }
         }
+
+        if(ConnectFlag){
+            errorMsgMap.clear();
+        }
+        //最终重连还是失败，就抛出异常
+        if(!ConnectFlag){
+            if(errorMsgMap.containsKey("SocketException")){
+                throw new HanCloudsServerException("瀚云rest-gateway地址"+this.gatewayUrl+" 链接超时,"+errorMsgMap.get("SocketException"));
+            }else{
+                throw new HanCloudsServerException("瀚云rest-gateway地址"+this.gatewayUrl+" IO异常,"+errorMsgMap.get("IOException"));
+            }
+        }
+
 
         //获取response
         BaseHttpResponse baseHttpResponse = null;
