@@ -10,6 +10,7 @@ import com.hanclouds.util.StringUtils;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 
 /**
  * @author czl
@@ -152,8 +153,10 @@ public class HanCloudsClient {
 
         try {
             httpURLConnection.connect();
+        } catch (SocketTimeoutException e){
+            throw new HanCloudsServerException("request get http connection SocketTimeoutException>"+e.getMessage());
         } catch (IOException e) {
-            throw new HanCloudsServerException(e.getMessage());
+            throw new HanCloudsServerException("request get http connection IOException>"+e.getMessage());
         }
 
         //获取response
