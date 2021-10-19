@@ -7,12 +7,18 @@ import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.http.AbstractHttpResponse;
 import com.hanclouds.http.BaseHttpResponse;
 import com.hanclouds.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author czl
@@ -20,12 +26,15 @@ import java.util.Map;
  * @date 2018/4/8 16:20
  */
 public class HanCloudsClient {
+    private Logger logger = LoggerFactory.getLogger(HanCloudsClient.class);
 
     private String gatewayUrl;
 
     private int reTryCount;
 
     private long reTryTime;
+
+    private boolean ConnectFlag;
 
     /**
      * 实体Key
@@ -41,6 +50,8 @@ public class HanCloudsClient {
     private String projectAuthKey;
     private String productServiceKey;
 
+    private ScheduledExecutorService scheduler;
+
     /**
      * Device 对应 token
      */
@@ -53,6 +64,7 @@ public class HanCloudsClient {
         this.gatewayUrl = gatewayUrl;
         this.reTryCount = 0;
         this.reTryTime = 5000;
+        this.ConnectFlag = false;
     }
 
     public void setReTryCount(int reTryCount) {
@@ -162,17 +174,16 @@ public class HanCloudsClient {
         }
         request.signAndPutQueryParams(this.secretKey);
 
-        HttpURLConnection httpURLConnection = request.getHttpConnection(this.gatewayUrl);
+        final HttpURLConnection httpURLConnection = request.getHttpConnection(this.gatewayUrl);
         if (httpURLConnection == null) {
             throw new HanCloudsClientException("request get http connection error");
         }
 
-        boolean ConnectFlag = false;
-        Map<String,String> errorMsgMap = new HashMap<String, String>();
 
+        final Map<String,String> errorMsgMap = new HashMap<String, String>();
         try {
             httpURLConnection.connect();
-            ConnectFlag = true;
+            this.ConnectFlag = true;
         }  catch (IOException e) {
             if(this.reTryCount <= 0){
                 if(e instanceof SocketTimeoutException){
@@ -181,33 +192,55 @@ public class HanCloudsClient {
                     errorMsgMap.put("IOException",e.getMessage());
                 }
             }
-            //异常情况下才进行重连机制，默认不重连，默认重连时间是5秒
+
             if(this.reTryCount > 0 && this.reTryTime > 0){
-                for (int i = 0; i < this.reTryCount; i++) {
-                    try {
-                        httpURLConnection.connect();
-                        ConnectFlag = true;
-                        break;
-                    } catch (IOException retryException) {
+                if(scheduler == null){
+                    scheduler = Executors.newScheduledThreadPool(5);//取得一个同时运行corePoolSize任务个数的计划任务执行池
+                }
+
+                final String jobID = "http_connect";
+                final AtomicInteger count = new AtomicInteger(0);
+                final Map<String, Future> futures = new HashMap<String, Future>();
+                final CountDownLatch countDownLatch = new CountDownLatch(1);
+
+                Future<?> future = scheduler.scheduleWithFixedDelay(new Runnable() {
+                    @Override
+                    public void run() {
+                        logger.info("http request occurs exception,retrying-"+(count.getAndIncrement()+1));
                         try {
-                            Thread.sleep(this.reTryTime);
-                        } catch (InterruptedException interruptedException) {
-                            interruptedException.printStackTrace();
-                            //errorMsgMap.put("InterruptedException",interruptedException.getMessage());
-                        }
-                        if(retryException instanceof SocketTimeoutException){
-                            errorMsgMap.put("SocketException",retryException.getMessage());
-                        }else{
-                            errorMsgMap.put("IOException",retryException.getMessage());
+                            httpURLConnection.connect();
+                            countDownLatch.countDown();//是用来线程计数器-1的，也就是新增线程运行完之后，都调用此方法将计数器变成0
+                            ConnectFlag = true;
+                        } catch (Exception retryException) {
+                            if(retryException instanceof SocketTimeoutException){
+                                errorMsgMap.put("SocketException",retryException.getMessage());
+                            }else{
+                                errorMsgMap.put("IOException",retryException.getMessage());
+                            }
+
+                            if (count.get() >= reTryCount) {
+                                Future<?> future = futures.get(jobID);//获取结果（可能会等待）
+                                if (future != null) future.cancel(true);//取消任务
+                                countDownLatch.countDown();
+                            }
                         }
                     }
+                }, 0, this.reTryTime, TimeUnit.MILLISECONDS);
+
+                futures.put(jobID, future);
+                try {
+                    countDownLatch.await();//最后调用await()方法，主线程就会被唤醒，继续执行其它代码
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
                 }
+                scheduler.shutdown();
             }
         }
 
         if(ConnectFlag){
             errorMsgMap.clear();
         }
+
         //最终重连还是失败，就抛出异常
         if(!ConnectFlag){
             if(errorMsgMap.containsKey("SocketException")){
@@ -216,7 +249,6 @@ public class HanCloudsClient {
                 throw new HanCloudsServerException("瀚云rest-gateway地址"+this.gatewayUrl+" IO异常,"+errorMsgMap.get("IOException"));
             }
         }
-
 
         //获取response
         BaseHttpResponse baseHttpResponse = null;
@@ -244,4 +276,6 @@ public class HanCloudsClient {
 
         return resp;
     }
+
+
 }
