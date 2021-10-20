@@ -7,18 +7,15 @@ import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.http.AbstractHttpResponse;
 import com.hanclouds.http.BaseHttpResponse;
 import com.hanclouds.util.StringUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author czl
@@ -179,7 +176,6 @@ public class HanCloudsClient {
             throw new HanCloudsClientException("request get http connection error");
         }
 
-
         final Map<String,String> errorMsgMap = new HashMap<String, String>();
         try {
             httpURLConnection.connect();
@@ -193,47 +189,38 @@ public class HanCloudsClient {
                 }
             }
 
-            if(this.reTryCount > 0 && this.reTryTime > 0){
-                if(scheduler == null){
-                    scheduler = Executors.newScheduledThreadPool(5);//取得一个同时运行corePoolSize任务个数的计划任务执行池
+            if(this.reTryCount > 0 && this.reTryTime > 0) {
+                if(null == scheduler){
+                    scheduler = Executors.newSingleThreadScheduledExecutor();
                 }
 
-                final String jobID = "http_connect";
-                final AtomicInteger count = new AtomicInteger(0);
-                final Map<String, Future> futures = new HashMap<String, Future>();
-                final CountDownLatch countDownLatch = new CountDownLatch(1);
-
-                Future<?> future = scheduler.scheduleWithFixedDelay(new Runnable() {
-                    @Override
-                    public void run() {
-                        logger.info("http request occurs exception,retrying-"+(count.getAndIncrement()+1));
+                for (int i = 0 ; i < this.reTryCount; i++) {
+                    int j=i;
+                    ScheduledFuture<Boolean> schedule = scheduler.schedule(() ->{
+                        logger.info("http request is retrying-{}", (j+1));
                         try {
                             httpURLConnection.connect();
-                            countDownLatch.countDown();//是用来线程计数器-1的，也就是新增线程运行完之后，都调用此方法将计数器变成0
-                            ConnectFlag = true;
-                        } catch (Exception retryException) {
-                            if(retryException instanceof SocketTimeoutException){
-                                errorMsgMap.put("SocketException",retryException.getMessage());
+                            return true;
+                        } catch (Exception retryExeption) {
+                            if(retryExeption instanceof SocketTimeoutException){
+                                errorMsgMap.put("SocketException",retryExeption.getMessage());
                             }else{
-                                errorMsgMap.put("IOException",retryException.getMessage());
+                                errorMsgMap.put("IOException",retryExeption.getMessage());
                             }
-
-                            if (count.get() >= reTryCount) {
-                                Future<?> future = futures.get(jobID);//获取结果（可能会等待）
-                                if (future != null) future.cancel(true);//取消任务
-                                countDownLatch.countDown();
-                            }
+                            return false;
                         }
-                    }
-                }, 0, this.reTryTime, TimeUnit.MILLISECONDS);
+                    },this.reTryTime,TimeUnit.MILLISECONDS);
 
-                futures.put(jobID, future);
-                try {
-                    countDownLatch.await();//最后调用await()方法，主线程就会被唤醒，继续执行其它代码
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
+                    try {
+                        if(schedule.get()){
+                            ConnectFlag = true;
+                            break;
+                        }
+                    } catch (InterruptedException | ExecutionException interruptedException) {
+                       throw new HanCloudsServerException("http request intterupted"+interruptedException.getMessage());
+                    }
+
                 }
-                scheduler.shutdown();
             }
         }
 

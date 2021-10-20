@@ -8,7 +8,10 @@
  
 ```java
 HanCloudsClient hanCloudsClient = new HanCloudsClient("http://api.hanclouds.com/api/v1");
-
+//Client增加失败重连机制，默认不开启
+hanCloudsClient.setReTryCount(xxx);//重连次数（可选）
+hanCloudsClient.setReTryTime(xxx);//重连间隔时间毫秒级（可选）
+        
 hanCloudsClient.putDeviceAuthParams("xxx", "xxx");
 
 //准备获取设备某数据流最新数据
