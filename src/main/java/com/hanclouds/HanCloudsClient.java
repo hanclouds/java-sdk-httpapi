@@ -195,7 +195,7 @@ public class HanCloudsClient {
                 }
 
                 for (int i = 0 ; i < this.reTryCount; i++) {
-                    int j=i;
+                    final int j=i;
                     ScheduledFuture<Boolean> schedule = scheduler.schedule(new Callable<Boolean>() {
                         @Override
                         public Boolean call() throws Exception {
