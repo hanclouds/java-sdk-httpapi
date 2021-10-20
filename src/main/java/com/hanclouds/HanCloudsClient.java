@@ -196,20 +196,23 @@ public class HanCloudsClient {
 
                 for (int i = 0 ; i < this.reTryCount; i++) {
                     int j=i;
-                    ScheduledFuture<Boolean> schedule = scheduler.schedule(() ->{
-                        logger.info("http request is retrying-{}", (j+1));
-                        try {
-                            httpURLConnection.connect();
-                            return true;
-                        } catch (Exception retryExeption) {
-                            if(retryExeption instanceof SocketTimeoutException){
-                                errorMsgMap.put("SocketException",retryExeption.getMessage());
-                            }else{
-                                errorMsgMap.put("IOException",retryExeption.getMessage());
+                    ScheduledFuture<Boolean> schedule = scheduler.schedule(new Callable<Boolean>() {
+                        @Override
+                        public Boolean call() throws Exception {
+                            logger.info("http request is retrying-{}", (j+1));
+                            try {
+                                httpURLConnection.connect();
+                                return true;
+                            } catch (Exception retryExeption) {
+                                if(retryExeption instanceof SocketTimeoutException){
+                                    errorMsgMap.put("SocketException",retryExeption.getMessage());
+                                }else{
+                                    errorMsgMap.put("IOException",retryExeption.getMessage());
+                                }
+                                return false;
                             }
-                            return false;
                         }
-                    },this.reTryTime,TimeUnit.MILLISECONDS);
+                    }, this.reTryTime, TimeUnit.MILLISECONDS);
 
                     try {
                         if(schedule.get()){
