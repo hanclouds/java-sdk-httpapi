@@ -20,12 +20,21 @@ public class DeviceDTO {
     private String descr;
     private Integer createProtocol;
     private Integer deviceStatus;
+    private Integer deviceCategory;
     private Boolean createAck;
     private Object extendData;
     private String deviceName;
     private Boolean gateway;
     private String gatewayKey;
 
+
+    public Integer getDeviceCategory() {
+        return deviceCategory;
+    }
+
+    public void setDeviceCategory(Integer deviceCategory) {
+        this.deviceCategory = deviceCategory;
+    }
     public Date getCreateAt() {
         return this.createAt;
     }
