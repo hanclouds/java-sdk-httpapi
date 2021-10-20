@@ -219,8 +219,10 @@ public class HanCloudsClient {
                             ConnectFlag = true;
                             break;
                         }
-                    } catch (InterruptedException | ExecutionException interruptedException) {
-                       throw new HanCloudsServerException("http request intterupted"+interruptedException.getMessage());
+                    } catch (InterruptedException interruptedException) {
+                        throw new HanCloudsServerException("http request interruptedException"+interruptedException.getMessage());
+                    } catch (ExecutionException executionException) {
+                        throw new HanCloudsServerException("http request executionException"+executionException.getMessage());
                     }
 
                 }
