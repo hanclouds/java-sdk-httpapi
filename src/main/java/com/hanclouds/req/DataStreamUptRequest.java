@@ -12,6 +12,7 @@ import com.hanclouds.resp.DataStreamUptResponse;
  * @version 1.0
  * @date 2018/5/30 15:27
  */
+@Deprecated
 public class DataStreamUptRequest extends AbstractProductKeyDataStreamRequest<DataStreamUptResponse> {
 
     private DataStreamUptDTO uptDTO;

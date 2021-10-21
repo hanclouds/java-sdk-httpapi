@@ -117,7 +117,7 @@ public class StringUtils {
      * StringUtils.clean("     ")       = ""
      * </pre>
      *
-     * @see java.lang.String#trim()
+     * @see String#trim()
      * @param str  the String to clean, may be null
      * @return the trimmed text, never <code>null</code>
      * @deprecated Use the clearer named {@link #trimToEmpty(String)}.

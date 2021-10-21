@@ -3,7 +3,6 @@ package com.hanclouds.resp;
 import com.hanclouds.http.AbstractHttpResponse;
 import com.hanclouds.http.BaseHttpResponse;
 import com.hanclouds.model.DataStreamDTO;
-import com.hanclouds.model.DeviceArchiveModelDTO;
 import com.hanclouds.model.PageResponse;
 import com.hanclouds.util.FastJsonTools;
 

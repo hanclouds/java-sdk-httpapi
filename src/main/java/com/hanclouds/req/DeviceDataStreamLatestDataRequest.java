@@ -16,8 +16,8 @@ import com.hanclouds.util.StringUtils;
 public class DeviceDataStreamLatestDataRequest extends AbstractDeviceKeyDataStreamPageRequest<DeviceDataStreamLatestDataResponse> {
 
     private Integer limit = 100;
-
     private String order;
+    private Long startTime;
 
 
     public DeviceDataStreamLatestDataRequest() {
@@ -32,6 +32,19 @@ public class DeviceDataStreamLatestDataRequest extends AbstractDeviceKeyDataStre
     public void setLimit(Integer limit) {
         this.limit = limit;
         this.putQueryParameter("limit", limit.toString());
+    }
+
+    public Long getStartTime()
+    {
+        return startTime;
+    }
+
+    public void setStartTime(Long startTime)
+    {
+        this.startTime = startTime;
+        if(startTime != null){
+            this.putQueryParameter("startTime", startTime.toString());
+        }
     }
 
     @Override
@@ -54,8 +67,18 @@ public class DeviceDataStreamLatestDataRequest extends AbstractDeviceKeyDataStre
     public void validate() throws HanCloudsClientException {
         super.validate();
 
+        if (!StringUtils.isEmpty(this.order)
+                && !"asc".toLowerCase().equals(this.order.toLowerCase())
+                && !"desc".toLowerCase().equals(this.order.toLowerCase())) {
+            throw new HanCloudsClientException("order must be asc or desc");
+        }
+
         if (this.limit <= 0) {
             throw new HanCloudsClientException("limit must greater than zero");
+        }
+
+        if(this.startTime != null && this.startTime <= 0) {
+            throw new HanCloudsClientException("startTime must greater than zero");
         }
     }
 }

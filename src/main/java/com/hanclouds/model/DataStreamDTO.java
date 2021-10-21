@@ -51,6 +51,26 @@ public class DataStreamDTO {
      */
     private Integer bussinessType;
 
+    /**
+     * 流类型：1为设备数据流，2为流计算数据流
+     */
+    private Short streamType;
+
+    /**
+     * 0-自定义功能，1-标准功能
+     */
+    private Boolean standard;
+
+    /**
+     * 0-新数据流，1-老数据流
+     */
+    private Boolean oldTag;
+
+    /**
+     * 模型对象
+     */
+    private String model;
+
 
     public Integer getId() {
         return id;
@@ -124,6 +144,38 @@ public class DataStreamDTO {
         this.title = title;
     }
 
+    public Short getStreamType() {
+        return streamType;
+    }
+
+    public void setStreamType(Short streamType) {
+        this.streamType = streamType;
+    }
+
+    public Boolean getStandard() {
+        return standard;
+    }
+
+    public void setStandard(Boolean standard) {
+        this.standard = standard;
+    }
+
+    public Boolean getOldTag() {
+        return oldTag;
+    }
+
+    public void setOldTag(Boolean oldTag) {
+        this.oldTag = oldTag;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
     @Override
     public String toString() {
         return "DataStreamDTO{" +
@@ -136,6 +188,10 @@ public class DataStreamDTO {
                 ", desc='" + desc + '\'' +
                 ", jsonSchema='" + jsonSchema + '\'' +
                 ", bussinessType=" + bussinessType +
+                ", streamType=" + streamType +
+                ", standard=" + standard +
+                ", oldTag=" + oldTag +
+                ", model='" + model + '\'' +
                 '}';
     }
 }

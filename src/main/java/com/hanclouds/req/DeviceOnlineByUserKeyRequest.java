@@ -7,6 +7,7 @@ import com.hanclouds.resp.IntegerResponse;
 import com.hanclouds.util.StringUtils;
 
 /**
+*  根据用户Key查询在线设备数
  * @author lih
  * @version 1.0
  * @date 2018/6/4 10:21

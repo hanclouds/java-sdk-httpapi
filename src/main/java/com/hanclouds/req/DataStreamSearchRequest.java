@@ -12,9 +12,8 @@ import com.hanclouds.resp.DataStreamPageResponse;
  */
 public class DataStreamSearchRequest extends AbstractProductKeyDataStreamRequest<DataStreamPageResponse> {
 
-
     public DataStreamSearchRequest() {
-        super("/products/{productKey}/datastreams/{dataName}/searchDataName");
+        super("/products/{productKey}/datastreams/search/{dataName}");
         this.setHttpMethod(HttpMethodEnum.GET);
     }
 

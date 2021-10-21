@@ -11,8 +11,20 @@ import com.hanclouds.resp.IntegerResponse;
  * @version 2.0
  * @date 2019/7/25
  */
-public class ProjectProductNumRequest extends AbstractProjectKeyRequest<IntegerResponse>
-{
+public class ProjectProductNumRequest extends AbstractProjectKeyRequest<IntegerResponse> {
+
+  private String queryAuthType;
+
+  public String getQueryAuthType() {
+    return queryAuthType;
+  }
+
+  public void setQueryAuthType(String queryAuthType) {
+    this.queryAuthType = queryAuthType;
+    if (this.queryAuthType != null) {
+      this.putQueryParameter("queryAuthTypeEnum", this.queryAuthType);
+    }
+  }
 
   public ProjectProductNumRequest() {
     super("/projects/{projectKey}/productNum");

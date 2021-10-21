@@ -1,11 +1,8 @@
 package com.hanclouds.req;
 
-import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractDeviceKeyRequest;
-import com.hanclouds.http.AbstractHttpRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.BooleanResponse;
-import com.hanclouds.util.StringUtils;
 
 /**
  * 设备启用
@@ -13,6 +10,7 @@ import com.hanclouds.util.StringUtils;
  * @version 1.0
  * @date 2018/4/30 12:34
  */
+@Deprecated
 public class DeviceEnableRequest extends AbstractDeviceKeyRequest<BooleanResponse> {
 
     public DeviceEnableRequest() {

@@ -2,10 +2,8 @@ package com.hanclouds.req;
 
 import com.hanclouds.exception.HanCloudsClientException;
 import com.hanclouds.http.AbstractDeviceKeyPageRequest;
-import com.hanclouds.http.AbstractDeviceKeyRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.DeviceEventPageResponse;
-import com.hanclouds.util.StringUtils;
 
 /**
  * 设备事件查询

@@ -1,12 +1,9 @@
 package com.hanclouds.req;
 
 import com.hanclouds.exception.HanCloudsClientException;
-import com.hanclouds.http.AbstractHttpPageRequest;
 import com.hanclouds.http.AbstractProductKeyPageRequest;
-import com.hanclouds.http.AbstractProductKeyRequest;
 import com.hanclouds.http.HttpMethodEnum;
 import com.hanclouds.resp.DevicePageResponse;
-import com.hanclouds.util.StringUtils;
 
 /**
  * 某个产品的设备列表请求
@@ -38,7 +35,7 @@ public class ProductDevicePageRequest extends AbstractProductKeyPageRequest<Devi
     }
 
     @Override
-    public void validate() throws HanCloudsClientException{
+    public void validate() throws HanCloudsClientException {
         super.validate();
 
         if (this.page <= 0) {

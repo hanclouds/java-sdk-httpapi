@@ -13,17 +13,28 @@ public class DeviceDTO {
     private Date updateAt;
     private String deviceKey;
     private String sn;
-
     private String userKey;
     private String productKey;
+    private String productCategory;
     private String deviceType;
     private String descr;
     private Integer createProtocol;
     private Integer deviceStatus;
+    private Integer deviceCategory;
     private Boolean createAck;
     private Object extendData;
     private String deviceName;
+    private Boolean gateway;
+    private String gatewayKey;
 
+
+    public Integer getDeviceCategory() {
+        return deviceCategory;
+    }
+
+    public void setDeviceCategory(Integer deviceCategory) {
+        this.deviceCategory = deviceCategory;
+    }
     public Date getCreateAt() {
         return this.createAt;
     }
@@ -124,8 +135,39 @@ public class DeviceDTO {
 
     public void setDeviceName(String deviceName) { this.deviceName = deviceName;}
 
+    public String getProductCategory()
+    {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory)
+    {
+        this.productCategory = productCategory;
+    }
+
+    public Boolean getGateway()
+    {
+        return gateway;
+    }
+
+    public void setGateway(Boolean gateway)
+    {
+        this.gateway = gateway;
+    }
+
+    public String getGatewayKey()
+    {
+        return gatewayKey;
+    }
+
+    public void setGatewayKey(String gatewayKey)
+    {
+        this.gatewayKey = gatewayKey;
+    }
+
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "DeviceDTO{" +
                 "createAt=" + createAt +
                 ", updateAt=" + updateAt +
@@ -133,6 +175,7 @@ public class DeviceDTO {
                 ", sn='" + sn + '\'' +
                 ", userKey='" + userKey + '\'' +
                 ", productKey='" + productKey + '\'' +
+                ", productCategory='" + productCategory + '\'' +
                 ", deviceType='" + deviceType + '\'' +
                 ", descr='" + descr + '\'' +
                 ", createProtocol=" + createProtocol +
@@ -140,6 +183,8 @@ public class DeviceDTO {
                 ", createAck=" + createAck +
                 ", extendData=" + extendData +
                 ", deviceName='" + deviceName + '\'' +
+                ", gateway=" + gateway +
+                ", gatewayKey='" + gatewayKey + '\'' +
                 '}';
     }
 }
