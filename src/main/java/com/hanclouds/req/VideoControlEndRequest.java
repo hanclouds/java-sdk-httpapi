@@ -38,6 +38,6 @@ public class VideoControlEndRequest extends AbstractDeviceKeyRequest<BooleanResp
 
     @Override
     public Class<BooleanResponse> getResponseClass() {
-        return null;
+        return BooleanResponse.class;
     }
 }

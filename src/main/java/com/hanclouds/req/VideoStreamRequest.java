@@ -38,6 +38,6 @@ public class VideoStreamRequest extends AbstractDeviceKeyRequest<VideoStreamResp
 
     @Override
     public Class<VideoStreamResponse> getResponseClass() {
-        return null;
+        return VideoStreamResponse.class;
     }
 }
