@@ -8,9 +8,6 @@ import com.alibaba.fastjson.JSONArray;
  * @date 2021/11/12 17:31
  */
 public class VideoStreamDTO {
-    private String streamId;
-    private String sipId;
-    private String channelId;
     private String flv;
     private String https_flv;
     private String ws_flv;
@@ -32,32 +29,7 @@ public class VideoStreamDTO {
     private String rtsp;
     private String rtsps;
     private String rtc;
-    private JSONArray tracks;
-    private String secret;
 
-    public String getStreamId() {
-        return streamId;
-    }
-
-    public void setStreamId(String streamId) {
-        this.streamId = streamId;
-    }
-
-    public String getSipId() {
-        return sipId;
-    }
-
-    public void setSipId(String sipId) {
-        this.sipId = sipId;
-    }
-
-    public String getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(String channelId) {
-        this.channelId = channelId;
-    }
 
     public String getFlv() {
         return flv;
@@ -227,29 +199,10 @@ public class VideoStreamDTO {
         this.rtc = rtc;
     }
 
-    public JSONArray getTracks() {
-        return tracks;
-    }
-
-    public void setTracks(JSONArray tracks) {
-        this.tracks = tracks;
-    }
-
-    public String getSecret() {
-        return secret;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
     @Override
     public String toString() {
         return "VideoStreamDTO{" +
-                "streamId='" + streamId + '\'' +
-                ", sipId='" + sipId + '\'' +
-                ", channelId='" + channelId + '\'' +
-                ", flv='" + flv + '\'' +
+                "flv='" + flv + '\'' +
                 ", https_flv='" + https_flv + '\'' +
                 ", ws_flv='" + ws_flv + '\'' +
                 ", wss_flv='" + wss_flv + '\'' +
@@ -270,8 +223,6 @@ public class VideoStreamDTO {
                 ", rtsp='" + rtsp + '\'' +
                 ", rtsps='" + rtsps + '\'' +
                 ", rtc='" + rtc + '\'' +
-                ", tracks=" + tracks +
-                ", secret='" + secret + '\'' +
                 '}';
     }
 }
