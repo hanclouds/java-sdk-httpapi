@@ -236,9 +236,9 @@ public class HanCloudsClient {
         //最终重连还是失败，就抛出异常
         if(!ConnectFlag){
             if(errorMsgMap.containsKey("SocketException")){
-                throw new HanCloudsServerException("瀚云rest-gateway地址"+this.gatewayUrl+" 链接超时,"+errorMsgMap.get("SocketException"));
+                throw new HanCloudsServerException("瀚云rest-gateway地址:"+this.gatewayUrl+" 链接超时,"+errorMsgMap.get("SocketException"));
             }else{
-                throw new HanCloudsServerException("瀚云rest-gateway地址"+this.gatewayUrl+" IO异常,"+errorMsgMap.get("IOException"));
+                throw new HanCloudsServerException("瀚云rest-gateway地址:"+this.gatewayUrl+" IO异常,"+errorMsgMap.get("IOException"));
             }
         }
 
