@@ -22,7 +22,7 @@ public class VideoChannelPageRequest extends AbstractDeviceKeyPageRequest<VideoC
     }
 
     public VideoChannelPageRequest() {
-        super("/videos/{deviceKey}/streamStart");
+        super("/videos/{deviceKey}/channelList");
         this.setHttpMethod(HttpMethodEnum.GET);
     }
 
