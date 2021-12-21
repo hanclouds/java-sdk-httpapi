@@ -26,7 +26,30 @@ public class DeviceDTO {
     private String deviceName;
     private Boolean gateway;
     private String gatewayKey;
+    /**
+     * 视频设备sipId
+     */
+    private String sipId;
+    /**
+     * 视频设备类型 0 ipc摄像头  1 nvr磁盘
+     */
+    private Integer monitorType;
 
+    public String getSipId() {
+        return sipId;
+    }
+
+    public void setSipId(String sipId) {
+        this.sipId = sipId;
+    }
+
+    public Integer getMonitorType() {
+        return monitorType;
+    }
+
+    public void setMonitorType(Integer monitorType) {
+        this.monitorType = monitorType;
+    }
 
     public Integer getDeviceCategory() {
         return deviceCategory;
