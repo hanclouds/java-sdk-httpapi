@@ -7,7 +7,7 @@ import java.util.Date;
  * @version 1.0
  * @date 2018/4/28 16:43
  */
-public class DeviceDTO {
+public class DeviceDetailDTO {
 
     private Date createAt;
     private Date updateAt;
@@ -24,9 +24,32 @@ public class DeviceDTO {
     private Boolean createAck;
     private Object extendData;
     private String deviceName;
-    private Boolean gateway;
+    private Integer gateway;
     private String gatewayKey;
+    /**
+     * 视频设备sipId
+     */
+    private String sipId;
+    /**
+     * 视频设备类型 0 ipc摄像头  1 nvr磁盘
+     */
+    private Integer monitorType;
 
+    public String getSipId() {
+        return sipId;
+    }
+
+    public void setSipId(String sipId) {
+        this.sipId = sipId;
+    }
+
+    public Integer getMonitorType() {
+        return monitorType;
+    }
+
+    public void setMonitorType(Integer monitorType) {
+        this.monitorType = monitorType;
+    }
 
     public Integer getDeviceCategory() {
         return deviceCategory;
@@ -145,12 +168,12 @@ public class DeviceDTO {
         this.productCategory = productCategory;
     }
 
-    public Boolean getGateway()
+    public Integer getGateway()
     {
         return gateway;
     }
 
-    public void setGateway(Boolean gateway)
+    public void setGateway(Integer gateway)
     {
         this.gateway = gateway;
     }
