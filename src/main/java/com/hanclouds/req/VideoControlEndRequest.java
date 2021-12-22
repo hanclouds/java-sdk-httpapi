@@ -33,7 +33,7 @@ public class VideoControlEndRequest extends AbstractDeviceKeyRequest<BooleanResp
 
     public VideoControlEndRequest() {
         super("/videos/{deviceKey}/ptzCmdEnd");
-        this.setHttpMethod(HttpMethodEnum.GET);
+        this.setHttpMethod(HttpMethodEnum.POST);
     }
 
     @Override

@@ -12,7 +12,7 @@ public class VideoSyncChannelRequest extends AbstractDeviceKeyRequest<BooleanRes
 
     public VideoSyncChannelRequest() {
         super("/videos/{deviceKey}/syncChannel");
-        this.setHttpMethod(HttpMethodEnum.GET);
+        this.setHttpMethod(HttpMethodEnum.POST);
     }
 
     @Override
