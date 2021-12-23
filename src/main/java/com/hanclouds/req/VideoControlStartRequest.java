@@ -56,7 +56,7 @@ public class VideoControlStartRequest extends AbstractDeviceKeyRequest<BooleanRe
 
     public VideoControlStartRequest() {
         super("/videos/{deviceKey}/ptzCmdStart");
-        this.setHttpMethod(HttpMethodEnum.GET);
+        this.setHttpMethod(HttpMethodEnum.POST);
     }
 
     @Override
