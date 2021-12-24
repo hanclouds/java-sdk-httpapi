@@ -8,6 +8,9 @@ import com.alibaba.fastjson.JSONArray;
  * @date 2021/11/12 17:31
  */
 public class VideoStreamDTO {
+    private String streamId;
+    private String sipId;
+    private String channelId;
     private String flv;
     private String https_flv;
     private String ws_flv;
@@ -30,6 +33,29 @@ public class VideoStreamDTO {
     private String rtsps;
     private String rtc;
 
+    public String getStreamId() {
+        return streamId;
+    }
+
+    public void setStreamId(String streamId) {
+        this.streamId = streamId;
+    }
+
+    public String getSipId() {
+        return sipId;
+    }
+
+    public void setSipId(String sipId) {
+        this.sipId = sipId;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
+    }
 
     public String getFlv() {
         return flv;
