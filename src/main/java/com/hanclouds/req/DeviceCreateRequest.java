@@ -28,6 +28,19 @@ public class DeviceCreateRequest extends AbstractProductKeyRequest<DeviceCreateR
 
     private String deviceName;
 
+    /**
+     *  gateway 1 ture 网关设备; 2 false 子设备
+     */
+    private Boolean gateway;
+
+    public Boolean getGateway() {
+        return gateway;
+    }
+
+    public void setGateway(Boolean gateway) {
+        this.gateway = gateway;
+    }
+
     public String getSn() {
         return sn;
     }
