@@ -97,7 +97,7 @@ public class DeviceCreateRequest extends AbstractProductKeyRequest<DeviceCreateR
         }
         SimplePropertyPreFilter filter = new SimplePropertyPreFilter(
                 DeviceCreateRequest.class,
-                "sn","descr","deviceType","deviceName"
+                "sn","descr","deviceType","deviceName","gateway"
         );
         setBodyContentByObject(filter);
     }
