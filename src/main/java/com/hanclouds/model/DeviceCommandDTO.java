@@ -58,6 +58,16 @@ public class DeviceCommandDTO {
      */
     private Object data;
 
+    private Object output;
+
+    public Object getOutput() {
+        return output;
+    }
+
+    public void setOutput(Object output) {
+        this.output = output;
+    }
+
     public String getCmdId() {
         return cmdId;
     }
@@ -151,6 +161,7 @@ public class DeviceCommandDTO {
                 ", state=" + state +
                 ", type=" + type +
                 ", data=" + data +
+                ", output=" + output +
                 '}';
     }
 }
