@@ -117,7 +117,7 @@ public class DeviceDataStreamByProductKeyRequest extends AbstractProductKeyPageR
         if (!StringUtils.isEmpty(this.timeUnit)
                 && !"ms".toLowerCase().equals(this.timeUnit.toLowerCase())
                 && !"ns".toLowerCase().equals(this.timeUnit.toLowerCase())) {
-            throw new HanCloudsClientException("order must be ms or ns");
+            throw new HanCloudsClientException("timeUnit must be ms or ns");
         }
 
         if (this.limit <= 0) {
