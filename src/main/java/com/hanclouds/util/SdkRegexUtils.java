@@ -22,9 +22,9 @@ public class SdkRegexUtils
     private static Pattern passwordRegex = Pattern.compile("(?!.*[\\u4E00-\\u9FA5\\s])(?!^[a-zA-Z]+$)(?!^[\\d]+$)(?!^[^a-zA-Z\\d]+$)^.{6,20}$", Pattern.CASE_INSENSITIVE);
     private static Pattern ipRegex = Pattern.compile("([1-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}", Pattern.CASE_INSENSITIVE);
     private static Pattern base64Regex = Pattern.compile("^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$", Pattern.CASE_INSENSITIVE);
-    private static Pattern nameRegex = Pattern.compile("^[A-Za-z0-9_!@#$%^&*()\\u4e00-\\u9fa5]+$", Pattern.CASE_INSENSITIVE);
-    private static Pattern deviceNameRegex = Pattern.compile("^[-A-Za-z0-9_!@#$%^&*()\\u4e00-\\u9fa5]+$", Pattern.CASE_INSENSITIVE);
-    private static Pattern archiveTemplateProperyNameRegex = Pattern.compile("^(?![-._])[-A-Za-z0-9_.\\u4e00-\\u9fa5]{1,30}$", Pattern.CASE_INSENSITIVE);
+    private static Pattern nameRegex = Pattern.compile("^[A-Za-z0-9_!@#$%^&*()\\u4e00-\\u9fa5 ]+$", Pattern.CASE_INSENSITIVE);
+    private static Pattern deviceNameRegex = Pattern.compile("^[-A-Za-z0-9_!@#$%^&*()\\u4e00-\\u9fa5 ]+$", Pattern.CASE_INSENSITIVE);
+    private static Pattern archiveTemplateProperyNameRegex = Pattern.compile("^(?![-._])[-A-Za-z0-9_.\\u4e00-\\u9fa5 ]{1,30}$", Pattern.CASE_INSENSITIVE);
 
     private static final int MOBILE_LENGTH = 11;
     private static final int MAX_ADDRESS_LENGTH = 15;
