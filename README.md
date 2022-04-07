@@ -41,7 +41,7 @@ if (response != null) {
 ```
 以上代码为获取物联卡仓库数据 分页效果。
 
-在SDK中，瀚云平台每一个API都被封装成 `XXXRequest` 对象，被 `HanCloudsClient` 执行后，将返回对应的Response，方便使用，不必再进一步自行封装了。
+在SDK中，瀚云平台每一个API都被封装成 `XXXRequest` 对象，被 `HanCloudsClient/ApiCardClient` 执行后，将返回对应的Response，方便使用，不必再进一步自行封装了。
 
 具体请使用对应IDE打开SDK查看。package路径 `main.java.com.hanclouds.req`。
 
