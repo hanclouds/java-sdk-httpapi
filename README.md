@@ -29,17 +29,15 @@ if (response != null) {
 以上代码为获取某设备下，`dataStreamName` 数据流最新数据。
 ## Demo2案例
 ```java
-  ApiCardClient client = new ApiCardClient("http://api.hanclouds.com/api/v1");
+  CardManageClient client = new CardManageClient("http://localhost:20300");
   client.putUserAuthParams(userKey, secretKey);
   client.setReTryCount(xxx);//重连次数（可选）
   client.setReTryTime(xxx);//重连间隔时间毫秒级（可选）
-  CardStorePageRequest request = new CardStorePageRequest();//构建查询request
-  Optional.ofNullable(msisdn).ifPresent(item->request.setMsisdns(item));//参数处理
-  request.setPage(page);//分页码
-  request.setPageSize(pageSize);//每页数
+  CardUseListRequest request = new CardUseListRequest();
+  Optional.ofNullable(msisdns).ifPresent(item->request.setMsisdns(item));
   return client.execute(request);
 ```
-以上代码为获取物联卡仓库数据 分页效果。
+以上代码为获取物联卡使用情况。
 
 在SDK中，瀚云平台每一个API都被封装成 `XXXRequest` 对象，被 `HanCloudsClient/ApiCardClient` 执行后，将返回对应的Response，方便使用，不必再进一步自行封装了。
 
