@@ -5,6 +5,8 @@ import com.hanclouds.http.AbstractHttpResponse;
 import com.hanclouds.http.BaseHttpResponse;
 import com.hanclouds.model.DeviceDataDTO;
 import com.hanclouds.model.carmanage.ProCardInfoListDto;
+import com.hanclouds.model.carmanage.ProCardInfoListIdDto;
+import org.springframework.beans.BeanUtils;
 
 import java.util.List;
 
@@ -16,13 +18,13 @@ import java.util.List;
  */
 public class CardUseListResponse extends AbstractHttpResponse {
 
-    private List<ProCardInfoListDto> response;
+    private List<ProCardInfoListIdDto> response;
 
-    public List<ProCardInfoListDto> getResponse() {
+    public List<ProCardInfoListIdDto> getResponse() {
         return response;
     }
 
-    public void setResponse(List<ProCardInfoListDto> response) {
+    public void setResponse(List<ProCardInfoListIdDto> response) {
         this.response = response;
     }
 
@@ -32,7 +34,11 @@ public class CardUseListResponse extends AbstractHttpResponse {
         if (baseHttpResponse == null || baseHttpResponse.getBodyContent() == null) {
             return;
         }
-
-        this.response = JSON.parseArray(new String(baseHttpResponse.getBodyContent()), ProCardInfoListDto.class);
+        List<ProCardInfoListDto> proCardInfoListDtos = JSON.parseArray(new String(baseHttpResponse.getBodyContent()), ProCardInfoListDto.class);
+        for(ProCardInfoListDto dto : proCardInfoListDtos){
+            ProCardInfoListIdDto idDto = new ProCardInfoListIdDto();
+            BeanUtils.copyProperties(dto,idDto,"id");
+            this.response.add(idDto);
+        }
     }
 }
