@@ -8,6 +8,7 @@ import com.hanclouds.model.carmanage.ProCardInfoListDto;
 import com.hanclouds.model.carmanage.ProCardInfoListIdDto;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,11 +35,15 @@ public class CardUseListResponse extends AbstractHttpResponse {
         if (baseHttpResponse == null || baseHttpResponse.getBodyContent() == null) {
             return;
         }
+        List<ProCardInfoListIdDto> list = new ArrayList<ProCardInfoListIdDto>();
         List<ProCardInfoListDto> proCardInfoListDtos = JSON.parseArray(new String(baseHttpResponse.getBodyContent()), ProCardInfoListDto.class);
         for(ProCardInfoListDto dto : proCardInfoListDtos){
             ProCardInfoListIdDto idDto = new ProCardInfoListIdDto();
             BeanUtils.copyProperties(dto,idDto,"id");
-            this.response.add(idDto);
+            list.add(idDto);
+        }
+        if(list.size()>0){
+            this.response=list;
         }
     }
 }
