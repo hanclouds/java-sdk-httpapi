@@ -1,6 +1,7 @@
 package com.hanclouds.resp.cardmanage;
 
 import com.alibaba.fastjson.JSON;
+import com.hanclouds.enums.CardStatusEnum;
 import com.hanclouds.http.AbstractHttpResponse;
 import com.hanclouds.http.BaseHttpResponse;
 import com.hanclouds.model.DeviceDataDTO;
@@ -40,6 +41,7 @@ public class CardUseListResponse extends AbstractHttpResponse {
         for(ProCardInfoListDto dto : proCardInfoListDtos){
             ProCardInfoListIdDto idDto = new ProCardInfoListIdDto();
             BeanUtils.copyProperties(dto,idDto,"id");
+            idDto.setCardStatus(CardStatusEnum.getIntByMessage(idDto.getCardStatus()));
             list.add(idDto);
         }
         if(list.size()>0){
