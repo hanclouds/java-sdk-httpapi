@@ -6,7 +6,7 @@
 
     <groupId>com.hanclouds</groupId>
     <artifactId>java-sdk-httpapi</artifactId>
-    <version>2.2.13-SNAPSHOT</version>
+    <version>2.2.13-RELEASE</version>
 
     <packaging>jar</packaging>
 
