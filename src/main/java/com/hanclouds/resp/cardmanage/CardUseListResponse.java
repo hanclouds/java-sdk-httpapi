@@ -1,6 +1,7 @@
 package com.hanclouds.resp.cardmanage;
 
 import com.alibaba.fastjson.JSON;
+import com.hanclouds.enums.CardStatusEnum;
 import com.hanclouds.http.AbstractHttpResponse;
 import com.hanclouds.http.BaseHttpResponse;
 import com.hanclouds.model.DeviceDataDTO;
@@ -8,6 +9,7 @@ import com.hanclouds.model.carmanage.ProCardInfoListDto;
 import com.hanclouds.model.carmanage.ProCardInfoListIdDto;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,11 +36,16 @@ public class CardUseListResponse extends AbstractHttpResponse {
         if (baseHttpResponse == null || baseHttpResponse.getBodyContent() == null) {
             return;
         }
+        List<ProCardInfoListIdDto> list = new ArrayList<ProCardInfoListIdDto>();
         List<ProCardInfoListDto> proCardInfoListDtos = JSON.parseArray(new String(baseHttpResponse.getBodyContent()), ProCardInfoListDto.class);
         for(ProCardInfoListDto dto : proCardInfoListDtos){
             ProCardInfoListIdDto idDto = new ProCardInfoListIdDto();
             BeanUtils.copyProperties(dto,idDto,"id");
-            this.response.add(idDto);
+            idDto.setCardStatus(CardStatusEnum.getIntByMessage(idDto.getCardStatus()));
+            list.add(idDto);
+        }
+        if(list.size()>0){
+            this.response=list;
         }
     }
 }
