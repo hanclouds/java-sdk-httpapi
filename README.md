@@ -29,7 +29,7 @@ if (response != null) {
 以上代码为获取某设备下，`dataStreamName` 数据流最新数据。
 ## Demo2案例
 ```java
-  CardManageClient client = new CardManageClient("http://localhost:20300");
+  CardManageClient client = new CardManageClient("http://api.hanclouds.com/api/sim");
   client.putUserAuthParams(userKey, secretKey);
   client.setReTryCount(xxx);//重连次数（可选）
   client.setReTryTime(xxx);//重连间隔时间毫秒级（可选）
