@@ -226,6 +226,8 @@ public class HanCloudsClient {
                     }
 
                 }
+                //关掉线程池
+                scheduler.shutdown();
             }
         }
 

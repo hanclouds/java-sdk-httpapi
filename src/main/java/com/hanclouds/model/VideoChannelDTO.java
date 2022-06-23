@@ -35,6 +35,15 @@ public class VideoChannelDTO {
     private Boolean hasAudio;
     private Boolean alive;
     private Boolean cloudRecord;
+    private byte[] snap;
+
+    public byte[] getSnap() {
+        return snap;
+    }
+
+    public void setSnap(byte[] snap) {
+        this.snap = snap;
+    }
 
     public String getChannelId() {
         return channelId;
