@@ -62,9 +62,9 @@ public class DeviceDataStreamUploadDataRequest extends AbstractDeviceKeyDataStre
         SdkRegexUtils.dataFormat(dataType, content.toString());
 
         // 这里解决content从String变成Object类型之后，String数据http数据格式转换失败的问题
-        if(content instanceof String && (dataType.equals(DataTypeEnum.STRING) || dataType.equals(DataTypeEnum.BIN))){
+        /*if(content instanceof String && (dataType.equals(DataTypeEnum.STRING) || dataType.equals(DataTypeEnum.BIN))){
             this.content = JSON.toJSONString(content);
-        }
+        }*/
         this.setBodyContentByObject(content);
     }
 }
